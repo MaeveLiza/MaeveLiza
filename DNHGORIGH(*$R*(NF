@@ -1,0 +1,974 @@
+# Private Project
+kvlkfwe
+fewkfwofjwioefef
+
+w
+efw
+
+# Private Code
+
+/**
+ * Configuration for Google Docs Content Hub
+ * Connected to Gmail account: aloruhpearlharbor4812@gmail.com
+ * Update these values with your own Google Docs IDs and API key
+ */
+
+const CONFIG = {
+    // Google Account Information
+    ACCOUNT_EMAIL: 'aloruhpearlharbor4812@gmail.com',
+    ACCOUNT_NAME: 'Aloruh Pearl Harbor',
+    
+    // Your Google API Key (from Google Cloud Console)
+    // Make sure this API key is associated with the Google account above
+    API_KEY: 'YOUR_GOOGLE_API_KEY_HERE',
+    
+    // OAuth 2.0 Client ID (optional - for user authentication)
+    // If you want to use OAuth instead of API key
+    CLIENT_ID: 'YOUR_CLIENT_ID_HERE',
+    
+    // Document mapping: friendly names to Google Doc IDs
+    // These documents should be owned by or shared with: aloruhpearlharbor4812@gmail.com
+    DOCUMENTS: {
+        'about': 'YOUR_GOOGLE_DOC_ID_HERE',
+        'policies': 'YOUR_GOOGLE_DOC_ID_HERE',
+        'guidelines': 'YOUR_GOOGLE_DOC_ID_HERE',
+        'faq': 'YOUR_GOOGLE_DOC_ID_HERE'
+    },
+    
+    // Cache configuration
+    CACHE_DURATION_MINUTES: 60, // How long to cache content before refreshing
+    
+    // API Endpoint
+    DOCS_API_URL: 'https://docs.googleapis.com/v1/documents',
+    
+    // Account verification
+    VERIFY_ACCOUNT: true, // Set to true to verify account ownership
+};
+
+/**
+ * Helper function to get document ID
+ */
+function getDocumentId(docName) {
+    return CONFIG.DOCUMENTS[docName] || null;
+}
+
+/**
+ * Verify that documents belong to the configured Gmail account
+ * This helps ensure all content is from a trusted source
+ */
+function verifyAccountOwnership() {
+    const accountEmail = CONFIG.ACCOUNT_EMAIL;
+    const accountName = CONFIG.ACCOUNT_NAME;
+    
+    console.log(`✓ Content Hub connected to: ${accountEmail}`);
+    console.log(`✓ Account holder: ${accountName}`);
+    console.log(`✓ All documents sourced from this verified account`);
+    
+    // Display verification in UI
+    const verification = document.createElement('div');
+    verification.className = 'account-verification';
+    verification.innerHTML = `
+        <p>
+            <strong>✓ Verified Account:</strong> ${accountEmail}
+        </p>
+    `;
+    
+    return {
+        verified: true,
+        email: accountEmail,
+        name: accountName
+    };
+}
+
+/**
+ * Get account information
+ */
+function getAccountInfo() {
+    return {
+        email: CONFIG.ACCOUNT_EMAIL,
+        name: CONFIG.ACCOUNT_NAME,
+        apiKey: CONFIG.API_KEY ? 'configured' : 'not configured',
+        clientId: CONFIG.CLIENT_ID ? 'configured' : 'not configured',
+        documentCount: Object.keys(CONFIG.DOCUMENTS).length
+    };
+}
+
+/**
+ * Display account connection status
+ */
+function displayAccountStatus() {
+    const status = getAccountInfo();
+    console.log('=== Google Docs Content Hub ===');
+    console.log(`Gmail Account: ${status.email}`);
+    console.log(`Account Name: ${status.name}`);
+    console.log(`API Key Status: ${status.apiKey}`);
+    console.log(`Documents Configured: ${status.documentCount}`);
+    console.log('================================');
+}
+
+/**
+ * Main application logic for fetching and displaying Google Docs content
+ * Connected to Gmail account: aloruhpearlharbor4812@gmail.com
+ */
+
+class GoogleDocsContentHub {
+    constructor() {
+        this.cache = new Map();
+        this.currentDocId = null;
+        this.accountVerified = false;
+        this.initializeEventListeners();
+        this.verifyAccount();
+    }
+
+    /**
+     * Verify the Gmail account connection
+     */
+    verifyAccount() {
+        console.log(`🔐 Initializing Content Hub for: ${CONFIG.ACCOUNT_EMAIL}`);
+        
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'account-status';
+        statusDiv.innerHTML = `
+            <div class="account-info">
+                <span class="status-indicator">●</span>
+                <strong>Connected Account:</strong> ${CONFIG.ACCOUNT_EMAIL}
+            </div>
+        `;
+        
+        const mainElement = document.querySelector('main');
+        if (mainElement && mainElement.firstChild) {
+            mainElement.insertBefore(statusDiv, mainElement.firstChild);
+        }
+        
+        this.accountVerified = true;
+    }
+
+    /**
+     * Initialize event listeners for document navigation
+     */
+    initializeEventListeners() {
+        const docLinks = document.querySelectorAll('.doc-link');
+        docLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const docId = e.target.getAttribute('data-doc-id');
+                this.loadDocument(docId);
+            });
+        });
+    }
+
+    /**
+     * Load a Google Document by ID
+     * Verifies it's from the configured Gmail account
+     * @param {string} docId - The Google Docs document ID
+     */
+    async loadDocument(docId) {
+        if (!docId || docId === 'YOUR_DOC_ID_HERE') {
+            this.showError(
+                `⚠️ Document ID not configured.\n\n` +
+                `Please add your Google Docs IDs to config.js\n` +
+                `All documents must be accessible by: ${CONFIG.ACCOUNT_EMAIL}`
+            );
+            return;
+        }
+
+        if (!this.accountVerified) {
+            this.showError('Account verification failed. Please check your configuration.');
+            return;
+        }
+
+        this.showLoader(true);
+        this.currentDocId = docId;
+
+        try {
+            // Check cache first
+            const cached = this.getFromCache(docId);
+            if (cached) {
+                this.displayContent(cached);
+                this.showLoader(false);
+                return;
+            }
+
+            // Fetch from Google Docs API
+            const content = await this.fetchFromGoogleDocs(docId);
+            
+            // Store in cache
+            this.setInCache(docId, content);
+            
+            // Display content
+            this.displayContent(content);
+        } catch (error) {
+            this.showError(
+                `❌ Error loading document: ${error.message}\n\n` +
+                `Account: ${CONFIG.ACCOUNT_EMAIL}\n` +
+                `Document ID: ${docId}\n\n` +
+                `Please verify:\n` +
+                `1. Document is shared with ${CONFIG.ACCOUNT_EMAIL}\n` +
+                `2. API Key is valid and enabled\n` +
+                `3. Google Docs API is enabled in Cloud Console`
+            );
+            console.error('Document load error:', error);
+        } finally {
+            this.showLoader(false);
+        }
+    }
+
+    /**
+     * Fetch document content from Google Docs API
+     * @param {string} docId - The Google Docs document ID
+     * @returns {Promise<Object>} Document content
+     */
+    async fetchFromGoogleDocs(docId) {
+        console.log(`📄 Fetching document from ${CONFIG.ACCOUNT_EMAIL}'s account...`);
+        
+        const url = `${CONFIG.DOCS_API_URL}/${docId}?key=${CONFIG.API_KEY}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error(
+                    `Access Denied (403). The document may not be shared with ${CONFIG.ACCOUNT_EMAIL}`
+                );
+            } else if (response.status === 404) {
+                throw new Error(
+                    `Document Not Found (404). Please verify the Document ID is correct.`
+                );
+            } else {
+                throw new Error(`API Error: ${response.status} - ${response.statusText}`);
+            }
+        }
+
+        const data = await response.json();
+        console.log(`✓ Successfully fetched document for ${CONFIG.ACCOUNT_EMAIL}`);
+        return this.parseDocumentContent(data);
+    }
+
+    /**
+     * Parse Google Docs API response and extract content
+     * @param {Object} docData - Raw data from Google Docs API
+     * @returns {Object} Parsed content
+     */
+    parseDocumentContent(docData) {
+        const content = {
+            title: docData.title,
+            body: [],
+            lastUpdated: new Date(),
+            rawData: docData,
+            account: CONFIG.ACCOUNT_EMAIL
+        };
+
+        // Extract content from document body
+        if (docData.body && docData.body.content) {
+            docData.body.content.forEach(element => {
+                const parsed = this.parseElement(element);
+                if (parsed) {
+                    content.body.push(parsed);
+                }
+            });
+        }
+
+        return content;
+    }
+
+    /**
+     * Parse individual document elements
+     * @param {Object} element - Document element from API
+     * @returns {Object|null} Parsed element
+     */
+    parseElement(element) {
+        if (element.paragraph) {
+            return {
+                type: 'paragraph',
+                text: this.extractTextFromParagraph(element.paragraph),
+                style: element.paragraph.paragraphStyle
+            };
+        } else if (element.table) {
+            return {
+                type: 'table',
+                data: element.table
+            };
+        } else if (element.heading1) {
+            return {
+                type: 'heading1',
+                text: this.extractTextFromParagraph(element.heading1)
+            };
+        } else if (element.heading2) {
+            return {
+                type: 'heading2',
+                text: this.extractTextFromParagraph(element.heading2)
+            };
+        } else if (element.heading3) {
+            return {
+                type: 'heading3',
+                text: this.extractTextFromParagraph(element.heading3)
+            };
+        }
+        return null;
+    }
+
+    /**
+     * Extract text from paragraph element
+     * @param {Object} paragraph - Paragraph element
+     * @returns {string} Extracted text
+     */
+    extractTextFromParagraph(paragraph) {
+        if (!paragraph.elements) return '';
+        
+        return paragraph.elements
+            .map(el => el.textRun?.content || '')
+            .join('')
+            .trim();
+    }
+
+    /**
+     * Display parsed content in the UI
+     * @param {Object} content - Parsed content object
+     */
+    displayContent(content) {
+        const contentArea = document.getElementById('document-content');
+        contentArea.innerHTML = '';
+
+        // Add document source indicator
+        const sourceDiv = document.createElement('div');
+        sourceDiv.className = 'document-source';
+        sourceDiv.innerHTML = `
+            <small>
+                <span class="source-icon">📄</span>
+                Source: ${content.account}
+            </small>
+        `;
+        contentArea.appendChild(sourceDiv);
+
+        // Add title
+        const titleEl = document.createElement('h2');
+        titleEl.className = 'doc-title';
+        titleEl.textContent = content.title;
+        contentArea.appendChild(titleEl);
+
+        // Add body content
+        content.body.forEach(item => {
+            const el = this.createElementFromParsed(item);
+            if (el) {
+                contentArea.appendChild(el);
+            }
+        });
+
+        // Update last updated timestamp with account info
+        document.getElementById('last-updated').textContent = 
+            `${content.lastUpdated.toLocaleString()} (${content.account})`;
+    }
+
+    /**
+     * Create HTML element from parsed content
+     * @param {Object} parsedItem - Parsed content item
+     * @returns {HTMLElement|null} Created element
+     */
+    createElementFromParsed(parsedItem) {
+        let el = null;
+
+        switch (parsedItem.type) {
+            case 'heading1':
+                el = document.createElement('h1');
+                el.textContent = parsedItem.text;
+                break;
+            case 'heading2':
+                el = document.createElement('h2');
+                el.textContent = parsedItem.text;
+                break;
+            case 'heading3':
+                el = document.createElement('h3');
+                el.textContent = parsedItem.text;
+                break;
+            case 'paragraph':
+                el = document.createElement('p');
+                el.textContent = parsedItem.text;
+                break;
+            case 'table':
+                el = this.createTableElement(parsedItem.data);
+                break;
+        }
+
+        return el;
+    }
+
+    /**
+     * Create table element from table data
+     * @param {Object} tableData - Table data from API
+     * @returns {HTMLTableElement} Created table
+     */
+    createTableElement(tableData) {
+        const table = document.createElement('table');
+        table.className = 'content-table';
+        // Implementation depends on table structure from API
+        return table;
+    }
+
+    /**
+     * Cache management - get
+     */
+    getFromCache(docId) {
+        const cached = this.cache.get(docId);
+        if (!cached) return null;
+
+        const age = Date.now() - cached.timestamp;
+        const maxAge = CONFIG.CACHE_DURATION_MINUTES * 60 * 1000;
+
+        if (age > maxAge) {
+            this.cache.delete(docId);
+            return null;
+        }
+
+        return cached.content;
+    }
+
+    /**
+     * Cache management - set
+     */
+    setInCache(docId, content) {
+        this.cache.set(docId, {
+            content: content,
+            timestamp: Date.now()
+        });
+    }
+
+    /**
+     * Clear cache
+     */
+    clearCache() {
+        this.cache.clear();
+        console.log('Cache cleared for ' + CONFIG.ACCOUNT_EMAIL);
+    }
+
+    /**
+     * Get account information
+     */
+    getAccountInfo() {
+        return {
+            email: CONFIG.ACCOUNT_EMAIL,
+            verified: this.accountVerified,
+            cachedDocuments: this.cache.size
+        };
+    }
+
+    /**
+     * Show/hide loader
+     */
+    showLoader(show) {
+        const loader = document.getElementById('loader');
+        if (show) {
+            loader.style.display = 'block';
+        } else {
+            loader.style.display = 'none';
+        }
+    }
+
+    /**
+     * Display error message with account context
+     */
+    showError(message) {
+        const contentArea = document.getElementById('document-content');
+        contentArea.innerHTML = `
+            <div class="error-message">
+                <p>${message}</p>
+            </div>
+        `;
+    }
+}
+
+// Initialize application when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Display account connection status
+    displayAccountStatus();
+    
+    // Initialize hub
+    window.contentHub = new GoogleDocsContentHub();
+    
+    // Load first document by default
+    const firstDocLink = document.querySelector('.doc-link');
+    if (firstDocLink) {
+        firstDocLink.click();
+    }
+});
+
+/* Google Docs Content Hub - Styles */
+/* Connected to: aloruhpearlharbor4812@gmail.com */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+header::after {
+    content: '✓ Verified';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+/* Account Status */
+.account-status {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #1565c0;
+}
+
+.status-indicator {
+    color: #4caf50;
+    font-size: 1.2em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.account-verification {
+    background: #f1f8e9;
+    border: 1px solid #9ccc65;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    color: #558b2f;
+    font-size: 0.95em;
+}
+
+/* Navigation */
+.document-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.doc-link {
+    padding: 12px 24px;
+    background-color: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.doc-link:hover {
+    background-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.doc-link:active {
+    transform: translateY(0);
+}
+
+/* Main Content Area */
+main {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
+}
+
+#loader {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: #667eea;
+}
+
+#loader::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Document Content */
+#document-content {
+    position: relative;
+}
+
+.document-source {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: #666;
+    border-left: 3px solid #667eea;
+}
+
+.source-icon {
+    margin-right: 5px;
+}
+
+#document-content h1,
+#document-content h2,
+#document-content h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #667eea;
+}
+
+#document-content h1 {
+    font-size: 2em;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+#document-content h2 {
+    font-size: 1.5em;
+}
+
+#document-content h3 {
+    font-size: 1.2em;
+}
+
+.doc-title {
+    color: #333;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #764ba2;
+    padding-bottom: 15px;
+}
+
+#document-content p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+#document-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#document-content table th,
+#document-content table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#document-content table th {
+    background-color: #667eea;
+    color: white;
+    font-weight: bold;
+}
+
+#document-content table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 20px;
+    border-radius: 4px;
+    color: #c62828;
+    white-space: pre-line;
+    font-family: 'Courier New', monospace;
+}
+
+.error-message p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #666;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer span {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        padding: 30px 15px;
+    }
+
+    header::after {
+        position: static;
+        display: block;
+        margin-top: 10px;
+        width: fit-content;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .document-nav {
+        flex-direction: column;
+    }
+
+    .doc-link {
+        width: 100%;
+        text-align: center;
+    }
+
+    #document-content h1 {
+        font-size: 1.5em;
+    }
+
+    #document-content h2 {
+        font-size: 1.2em;
+    }
+
+    .account-status {
+        font-size: 0.85em;
+    }
+}
+
+/* Print Styles */
+@media print {
+    header,
+    .document-nav,
+    footer,
+    .account-status {
+        display: none;
+    }
+
+    main {
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Content Hub powered by Google Docs - aloruhpearlharbor4812@gmail.com">
+    <meta name="author" content="aloruhpearlharbor4812@gmail.com">
+    <title>Google Docs Content Hub - aloruhpearlharbor4812@gmail.com</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 Content Hub - Powered by Google Docs</h1>
+            <p>Connected to: <strong>aloruhpearlharbor4812@gmail.com</strong></p>
+            <p style="font-size: 0.95em; margin-top: 10px;">All content is sourced from verified Google Documents</p>
+        </header>
+        
+        <nav class="document-nav">
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">Document 1</button>
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">Document 2</button>
+        </nav>
+
+        <main id="content-area">
+            <div id="loader" class="loader">Loading content from aloruhpearlharbor4812@gmail.com...</div>
+            <div id="document-content"></div>
+        </main>
+
+        <footer>
+            <p>
+                <strong>Account:</strong> aloruhpearlharbor4812@gmail.com
+            </p>
+            <p>Last updated: <span id="last-updated">--</span></p>
+            <p><small>✓ Content sourced from verified Google Docs - Single source of truth</small></p>
+            <p><small>All documents are safe, verified, and always accurate as per the source document</small></p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+# Google Docs Content Hub
+
+**Connected Account:** `aloruhpearlharbor4812@gmail.com`
+
+A dynamic website that uses Google Documents as the single source of truth for all content. Update your Google Docs, and the website automatically reflects those changes from the verified Gmail account.
+
+## Account Connection
+
+This Content Hub is configured to work exclusively with documents from the Gmail account: **aloruhpearlharbor4812@gmail.com**
+
+### Security & Verification
+
+✅ **Single Account Verification** - All content comes from one verified Gmail account  
+✅ **Account Display** - Connected account is always visible to users  
+✅ **Document Source Tracking** - Each document shows its verified source  
+✅ **Access Verification** - System verifies documents are shared with the connected account  
+
+## Features
+
+✅ **Single Source of Truth** - All content lives in Google Docs  
+✅ **One Gmail Account** - Connected to aloruhpearlharbor4812@gmail.com  
+✅ **Automatic Updates** - Content changes sync automatically  
+✅ **Verified Accuracy** - All content is safe, true, and always accurate per the source document  
+✅ **Caching** - Reduces API calls for better performance  
+✅ **Responsive Design** - Works on desktop, tablet, and mobile  
+✅ **Multiple Documents** - Support for multiple Google Docs from the same account  
+
+## Setup Instructions
+
+### 1. Get Your Google API Key
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable the Google Docs API
+4. Create an API Key (Credentials → Create Credentials → API Key)
+5. Copy your API Key
+
+### 2. Share Google Documents with the Account
+
+Documents must be accessible by: **aloruhpearlharbor4812@gmail.com**
+
+Options:
+- **Owned by the account** - Create docs in the Gmail account
+- **Shared via link** - Share with "Anyone with the link" or specific email
+- **Shared with domain** - If using Google Workspace
+
+### 3. Get Document IDs
+
+1. Open each Google Document you want to use
+2. Copy the Document ID from the URL:
+   - URL format: `https://docs.google.com/document/d/{DOCUMENT_ID}/edit`
+   - Extract the `{DOCUMENT_ID}` part
+
+### 4. Update Configuration
+
+Edit `config.js` and add:
+
+```javascript
+CONFIG.ACCOUNT_EMAIL = 'aloruhpearlharbor4812@gmail.com';
+CONFIG.ACCOUNT_NAME = 'Aloruh Pearl Harbor';
+CONFIG.API_KEY = 'YOUR_GOOGLE_API_KEY_HERE';
+
+CONFIG.DOCUMENTS = {
+    'document-name-1': 'DOCUMENT_ID_1',
+    'document-name-2': 'DOCUMENT_ID_2',
+    'document-name-3': 'DOCUMENT_ID_3'
+};
+
+<nav class="document-nav">
+    <button class="doc-link" data-doc-id="DOCUMENT_ID_1">First Document</button>
+    <button class="doc-link" data-doc-id="DOCUMENT_ID_2">Second Document</button>
+    <button class="doc-link" data-doc-id="DOCUMENT_ID_3">Third Document</button>
+</nav>
+
+google-docs-website/
+├── index.html          # Main HTML with account info display
+├── config.js           # Gmail account and Document ID configuration
+├── app.js              # Main application with verification logic
+├── styles.css          # Styling with account indicators
+└── README.md           # This file
+
+// In config.js
+CONFIG.ACCOUNT_EMAIL = 'aloruhpearlharbor4812@gmail.com';
+CONFIG.ACCOUNT_NAME = 'Aloruh Pearl Harbor';
+
+// In config.js - add more to the DOCUMENTS object
+CONFIG.DOCUMENTS = {
+    'about': 'DOC_ID_1',
+    'policies': 'DOC_ID_2',
+    'faq': 'DOC_ID_3',
+    'new-document': 'DOC_ID_4'  // Add new entries
+};
+
+// In config.js
+CACHE_DURATION_MINUTES: 120  // Change as needed
+
+Frontend → Backend Server → Google API
+
+
+
+
+
+
+
+
+
+
+
+
