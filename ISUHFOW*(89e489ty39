@@ -1,0 +1,53 @@
+
+# Private Project
+
+fewefiweojut84ur8e4
+
+# Private Code
+
+eflnwenwkgwe
+g
+wege
+
+
+# Private Project
+
+wejrw4or938ty8493t
+
+# Private Code
+wuiehftw3t83tfe8
+
+from docx import Document
+
+doc = Document()
+doc.add_heading('Last Will and Testament (Draft Template)', level=1)
+p = doc.add_paragraph()
+p.add_run("This document is a general template and is not legal advice. ")
+p.add_run("Laws vary by jurisdiction, and a qualified attorney should review any will before it is signed or relied upon.")
+
+doc.add_paragraph("I, Maeve Elizabeth Cooper, being of sound mind and legal age, declare this to be my Last Will and Testament and revoke all prior wills and codicils.")
+
+sections = [
+    "1. Identification and Declaration",
+    "2. Appointment of Executor",
+    "3. Payment of Debts, Taxes, and Expenses",
+    "4. Distribution of Property and Assets",
+    "5. Specific Gifts and Bequests",
+    "6. Residuary Estate",
+    "7. Guardianship (if applicable)",
+    "8. Digital Assets and Accounts",
+    "9. Funeral and Memorial Wishes (optional)",
+    "10. Signatures and Witnesses"
+]
+
+for s in sections:
+    doc.add_paragraph(s)
+
+doc.add_paragraph("\nExecutor: __________________________")
+doc.add_paragraph("Beneficiaries: ______________________")
+doc.add_paragraph("Date: ______________________________")
+
+path = "/mnt/data/Maeve_Elizabeth_Cooper_Will_Template.docx"
+doc.save(path)
+
+print(path)
