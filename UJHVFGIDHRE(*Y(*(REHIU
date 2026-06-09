@@ -1,0 +1,140 @@
+# Private Project
+
+# Private Code
+
+eoifhiowe
+ew
+fwe
+f
+
+# Private Project
+
+# Private Code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ABSOLUTE MODE - Content Hub with || delimiters - aloruhpearlharbor4812@gmail.com">
+    <meta name="author" content="aloruhpearlharbor4812@gmail.com">
+    <title>ABSOLUTE MODE - Google Docs Content Hub - aloruhpearlharbor4812@gmail.com</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📌 ABSOLUTE MODE - Content Hub</h1>
+            <p>Processing only <code>||marked||</code> content from Google Docs</p>
+            <p>Connected to: <strong>aloruhpearlharbor4812@gmail.com</strong></p>
+        </header>
+        
+        <nav class="document-nav">
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 1</button>
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 2</button>
+        </nav>
+
+        <main id="content-area">
+            <div id="loader" class="loader">
+                <div class="analyzing-container">
+                    <div class="analyzing-text">
+                        <span class="analyzing-word">Analyzing</span><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="analyzing-status">Processing ||delimited|| content from aloruhpearlharbor4812@gmail.com</p>
+                </div>
+            </div>
+            <div id="document-content"></div>
+        </main>
+
+        <footer>
+            <p>
+                <strong>🔐 Account:</strong> aloruhpearlharbor4812@gmail.com
+            </p>
+            <p>
+                <strong>📌 Mode:</strong> ABSOLUTE MODE - Only ||sentences||, ||words||, and ||paragraphs||
+            </p>
+            <p>Last updated: <span id="last-updated">--</span></p>
+            <p>
+                <small>
+                    ✓ Content sourced from verified Google Docs - Single source of truth
+                    <br>
+                    ✓ Leaveway allowed for flexible matching
+                    <br>
+                    ✓ All marked content is safe, verified, and always accurate
+                </small>
+            </p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ABSOLUTE MODE - Content Hub with || delimiters - aloruhpearlharbor4812@gmail.com">
+    <meta name="author" content="aloruhpearlharbor4812@gmail.com">
+    <title>ABSOLUTE MODE - Google Docs Content Hub - aloruhpearlharbor4812@gmail.com</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📌 ABSOLUTE MODE - Content Hub</h1>
+            <p>Processing only <code>||marked||</code> content from Google Docs</p>
+            <p>Connected to: <strong>aloruhpearlharbor4812@gmail.com</strong></p>
+        </header>
+        
+        <nav class="document-nav">
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 1</button>
+            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 2</button>
+        </nav>
+
+        <main id="content-area">
+            <div id="loader" class="loader">
+                <div class="analyzing-container">
+                    <div class="analyzing-text">
+                        <span class="analyzing-word">Analyzing</span><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="analyzing-status">Processing ||delimited|| content from aloruhpearlharbor4812@gmail.com</p>
+                </div>
+            </div>
+            <div id="document-content"></div>
+        </main>
+
+        <footer>
+            <p>
+                <strong>🔐 Account:</strong> aloruhpearlharbor4812@gmail.com
+            </p>
+            <p>
+                <strong>📌 Mode:</strong> ABSOLUTE MODE - Only ||sentences||, ||words||, and ||paragraphs||
+            </p>
+            <p>Last updated: <span id="last-updated">--</span></p>
+            <p>
+                <small>
+                    ✓ Content sourced from verified Google Docs - Single source of truth
+                    <br>
+                    ✓ Leaveway allowed for flexible matching
+                    <br>
+                    ✓ All marked content is safe, verified, and always accurate
+                </small>
+            </p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
