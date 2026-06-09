@@ -2,10 +2,7 @@
 
 # Private Code
 
-eoifhiowe
-ew
-fwe
-f
+eoifdek
 
 # Private Project
 
@@ -74,67 +71,1122 @@ f
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ABSOLUTE MODE - Content Hub with || delimiters - aloruhpearlharbor4812@gmail.com">
-    <meta name="author" content="aloruhpearlharbor4812@gmail.com">
-    <title>ABSOLUTE MODE - Google Docs Content Hub - aloruhpearlharbor4812@gmail.com</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>📌 ABSOLUTE MODE - Content Hub</h1>
-            <p>Processing only <code>||marked||</code> content from Google Docs</p>
-            <p>Connected to: <strong>aloruhpearlharbor4812@gmail.com</strong></p>
-        </header>
+/* Google Docs Content Hub - ABSOLUTE MODE Styles */
+/* Connected to: aloruhpearlharbor4812@gmail.com */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+header::after {
+    content: '✓ ABSOLUTE MODE';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #ff6b6b;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+/* Account Status */
+.account-status {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #1565c0;
+    margin-bottom: 10px;
+}
+
+.status-indicator {
+    color: #4caf50;
+    font-size: 1.2em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Absolute Mode Info */
+.absolute-mode-info {
+    background: #fff3e0;
+    padding: 10px;
+    border-radius: 4px;
+    color: #e65100;
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+
+.absolute-badge {
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 0.85em;
+}
+
+.absolute-badge::before {
+    content: '||';
+    margin-right: 4px;
+}
+
+.absolute-badge::after {
+    content: '||';
+    margin-left: 4px;
+}
+
+/* Navigation */
+.document-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.doc-link {
+    padding: 12px 24px;
+    background-color: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.doc-link:hover {
+    background-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.doc-link:active {
+    transform: translateY(0);
+}
+
+/* Main Content Area */
+main {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
+}
+
+/* ===== ANALYZING LOADER STYLES ===== */
+#loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    width: 100%;
+}
+
+.analyzing-container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.analyzing-text {
+    font-size: 2.5em;
+    font-weight: 300;
+    color: #667eea;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-family: 'Courier New', monospace;
+}
+
+.analyzing-word {
+    animation: fadeInOut 1s infinite;
+}
+
+.dot {
+    display: inline-block;
+    animation: dotAnimation 1.4s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes dotAnimation {
+    0%, 20% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 10px;
+    animation: fillProgress 2s ease-in-out infinite;
+}
+
+@keyframes fillProgress {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+
+/* Analyzing Status Text */
+.analyzing-status {
+    font-size: 0.95em;
+    color: #666;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+.analyzing-status::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #4caf50;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 1s infinite;
+}
+
+/* Alternative Analyzing Spinner */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Document Content */
+#document-content {
+    position: relative;
+}
+
+.document-source {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: #666;
+    border-left: 3px solid #667eea;
+}
+
+.source-icon {
+    margin-right: 5px;
+}
+
+/* Mode Info */
+.mode-info {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    color: #856404;
+}
+
+.mode-info p {
+    margin: 5px 0;
+}
+
+.mode-info code {
+    background: #ffeaa7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #d63031;
+}
+
+/* Document Title */
+#document-content h1,
+#document-content h2,
+#document-content h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #667eea;
+}
+
+#document-content h1 {
+    font-size: 2em;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+#document-content h2 {
+    font-size: 1.5em;
+}
+
+#document-content h3 {
+    font-size: 1.2em;
+}
+
+.doc-title {
+    color: #333;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #764ba2;
+    padding-bottom: 15px;
+}
+
+/* Paragraph Container */
+.paragraph-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fafafa;
+    border-radius: 4px;
+    border-left: 3px solid #667eea;
+}
+
+.original-paragraph {
+    margin: 10px 0;
+    color: #666;
+    font-size: 0.95em;
+    font-style: italic;
+}
+
+/* Absolute Items Display */
+.absolute-items {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+}
+
+.absolute-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.absolute-item:hover {
+    background: #f0f0f0;
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 0.75em;
+    font-weight: bold;
+    color: white;
+    min-width: 60px;
+    text-align: center;
+}
+
+.absolute-word .type-badge {
+    background: #4caf50;
+}
+
+.absolute-sentence .type-badge {
+    background: #2196f3;
+}
+
+.absolute-paragraph .type-badge {
+    background: #ff9800;
+}
+
+.absolute-content {
+    flex: 1;
+    color: #333;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.absolute-content::before {
+    content: '||';
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.absolute-content::after {
+    content: '||';
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+.confidence {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* Absolute Summary */
+.absolute-summary {
+    background: #f1f8e9;
+    border: 2px solid #9ccc65;
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 30px;
+    color: #558b2f;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.absolute-summary p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.absolute-summary strong {
+    color: #33691e;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 20px;
+    border-radius: 4px;
+    color: #c62828;
+    white-space: pre-line;
+    font-family: 'Courier New', monospace;
+    animation: slideIn 0.3s ease-out;
+}
+
+.error-message p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #666;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer span {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        padding: 30px 15px;
+    }
+
+    header::after {
+        position: static;
+        display: block;
+        margin-top: 10px;
+        width: fit-content;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .document-nav {
+        flex-direction: column;
+    }
+
+    .doc-link {
+        width: 100%;
+        text-align: center;
+    }
+
+    #document-content h1 {
+        font-size: 1.5em;
+    }
+
+    #document-content h2 {
+        font-size: 1.2em;
+    }
+
+    .absolute-item {
+        flex-wrap: wrap;
+    }
+
+    .type-badge {
+        min-width: 50px;
+    }
+
+    .absolute-summary {
+        font-size: 0.9em;
+    }
+
+    .analyzing-text {
+        font-size: 1.8em;
+    }
+
+    .progress-bar {
+        height: 4px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    header,
+    .document-nav,
+    footer,
+    .account-status,
+    #loader {
+        display: none;
+    }
+
+    main {
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .absolute-item {
+        page-break-inside: avoid;
+    }
+}
+
+/**
+ * Main application logic for Google Docs Content Hub
+ * With ABSOLUTE MODE processing and ANALYZING loading sequence
+ */
+
+class GoogleDocsContentHub {
+    constructor() {
+        this.cache = new Map();
+        this.currentDocId = null;
+        this.accountVerified = false;
+        this.absoluteParser = new AbsoluteValueParser();
+        this.analyzingInterval = null;
+        this.initializeEventListeners();
+        this.verifyAccount();
+    }
+
+    /**
+     * Verify the Gmail account connection
+     */
+    verifyAccount() {
+        console.log(`🔐 Initializing Content Hub for: ${CONFIG.ACCOUNT_EMAIL}`);
+        console.log(`📌 ABSOLUTE MODE: Processing only ||marked|| content`);
         
-        <nav class="document-nav">
-            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 1</button>
-            <button class="doc-link" data-doc-id="YOUR_DOC_ID_HERE">📄 Document 2</button>
-        </nav>
-
-        <main id="content-area">
-            <div id="loader" class="loader">
-                <div class="analyzing-container">
-                    <div class="analyzing-text">
-                        <span class="analyzing-word">Analyzing</span><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <p class="analyzing-status">Processing ||delimited|| content from aloruhpearlharbor4812@gmail.com</p>
-                </div>
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'account-status';
+        statusDiv.innerHTML = `
+            <div class="account-info">
+                <span class="status-indicator">●</span>
+                <strong>Connected Account:</strong> ${CONFIG.ACCOUNT_EMAIL}
             </div>
-            <div id="document-content"></div>
-        </main>
+            <div class="absolute-mode-info">
+                <span class="absolute-badge">ABSOLUTE MODE</span>
+                Processing sentences, words, and paragraphs marked with: <code>||content||</code>
+            </div>
+        `;
+        
+        const mainElement = document.querySelector('main');
+        if (mainElement && mainElement.firstChild) {
+            mainElement.insertBefore(statusDiv, mainElement.firstChild);
+        }
+        
+        this.accountVerified = true;
+    }
 
-        <footer>
-            <p>
-                <strong>🔐 Account:</strong> aloruhpearlharbor4812@gmail.com
-            </p>
-            <p>
-                <strong>📌 Mode:</strong> ABSOLUTE MODE - Only ||sentences||, ||words||, and ||paragraphs||
-            </p>
-            <p>Last updated: <span id="last-updated">--</span></p>
-            <p>
-                <small>
-                    ✓ Content sourced from verified Google Docs - Single source of truth
-                    <br>
-                    ✓ Leaveway allowed for flexible matching
-                    <br>
-                    ✓ All marked content is safe, verified, and always accurate
-                </small>
-            </p>
-        </footer>
-    </div>
+    /**
+     * Initialize event listeners for document navigation
+     */
+    initializeEventListeners() {
+        const docLinks = document.querySelectorAll('.doc-link');
+        docLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const docId = e.target.getAttribute('data-doc-id');
+                this.loadDocument(docId);
+            });
+        });
+    }
 
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
+    /**
+     * Load a Google Document by ID
+     */
+    async loadDocument(docId) {
+        if (!docId || docId === 'YOUR_DOC_ID_HERE') {
+            this.showError(
+                `⚠️ Document ID not configured.\n\n` +
+                `Please add your Google Docs IDs to config.js\n` +
+                `All documents must be accessible by: ${CONFIG.ACCOUNT_EMAIL}\n\n` +
+                `🔍 ABSOLUTE MODE: Only content marked with ||delimiters|| will be displayed`
+            );
+            return;
+        }
+
+        if (!this.accountVerified) {
+            this.showError('Account verification failed. Please check your configuration.');
+            return;
+        }
+
+        this.showAnalyzingLoader(true);
+        this.currentDocId = docId;
+
+        try {
+            // Simulate analysis time (minimum 1 second for UX)
+            const startTime = Date.now();
+            
+            const cached = this.getFromCache(docId);
+            if (cached) {
+                const elapsedTime = Date.now() - startTime;
+                const minAnalysisTime = 1000;
+                if (elapsedTime < minAnalysisTime) {
+                    await new Promise(resolve => 
+                        setTimeout(resolve, minAnalysisTime - elapsedTime)
+                    );
+                }
+                this.displayContent(cached);
+                this.showAnalyzingLoader(false);
+                return;
+            }
+
+            const content = await this.fetchFromGoogleDocs(docId);
+            
+            // Ensure minimum analysis time
+            const elapsedTime = Date.now() - startTime;
+            const minAnalysisTime = 1000;
+            if (elapsedTime < minAnalysisTime) {
+                await new Promise(resolve => 
+                    setTimeout(resolve, minAnalysisTime - elapsedTime)
+                );
+            }
+            
+            this.setInCache(docId, content);
+            this.displayContent(content);
+        } catch (error) {
+            this.showError(
+                `❌ Error loading document: ${error.message}\n\n` +
+                `Account: ${CONFIG.ACCOUNT_EMAIL}\n` +
+                `Document ID: ${docId}\n\n` +
+                `Please verify:\n` +
+                `1. Document is shared with ${CONFIG.ACCOUNT_EMAIL}\n` +
+                `2. API Key is valid and enabled\n` +
+                `3. Google Docs API is enabled in Cloud Console`
+            );
+            console.error('Document load error:', error);
+        } finally {
+            this.showAnalyzingLoader(false);
+        }
+    }
+
+    /**
+     * Show analyzing loader with animated sequence
+     */
+    showAnalyzingLoader(show) {
+        const loader = document.getElementById('loader');
+        
+        if (show) {
+            loader.style.display = 'flex';
+            
+            // Create analyzing animation cycle
+            let analysisStep = 0;
+            const statusElement = document.querySelector('.analyzing-status');
+            
+            if (statusElement) {
+                const steps = [
+                    'Processing ||delimited|| content from aloruhpearlharbor4812@gmail.com',
+                    'Extracting sentences, words, and paragraphs...',
+                    'Validating content with leaveway matching...',
+                    'Organizing absolute value items...',
+                    'Finalizing content analysis...'
+                ];
+                
+                if (this.analyzingInterval) {
+                    clearInterval(this.analyzingInterval);
+                }
+                
+                this.analyzingInterval = setInterval(() => {
+                    if (loader.style.display === 'flex') {
+                        statusElement.textContent = steps[analysisStep % steps.length];
+                        analysisStep++;
+                    } else {
+                        clearInterval(this.analyzingInterval);
+                        this.analyzingInterval = null;
+                    }
+                }, 600);
+            }
+        } else {
+            loader.style.display = 'none';
+            if (this.analyzingInterval) {
+                clearInterval(this.analyzingInterval);
+                this.analyzingInterval = null;
+            }
+        }
+    }
+
+    /**
+     * Fetch document content from Google Docs API
+     */
+    async fetchFromGoogleDocs(docId) {
+        console.log(`📄 Analyzing document from ${CONFIG.ACCOUNT_EMAIL}'s account...`);
+        
+        const url = `${CONFIG.DOCS_API_URL}/${docId}?key=${CONFIG.API_KEY}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error(
+                    `Access Denied (403). The document may not be shared with ${CONFIG.ACCOUNT_EMAIL}`
+                );
+            } else if (response.status === 404) {
+                throw new Error(
+                    `Document Not Found (404). Please verify the Document ID is correct.`
+                );
+            } else {
+                throw new Error(`API Error: ${response.status} - ${response.statusText}`);
+            }
+        }
+
+        const data = await response.json();
+        console.log(`✓ Successfully analyzed document for ${CONFIG.ACCOUNT_EMAIL}`);
+        return this.parseDocumentContent(data);
+    }
+
+    /**
+     * Parse Google Docs API response with ABSOLUTE MODE filtering
+     */
+    parseDocumentContent(docData) {
+        const content = {
+            title: docData.title,
+            body: [],
+            lastUpdated: new Date(),
+            rawData: docData,
+            account: CONFIG.ACCOUNT_EMAIL,
+            absoluteMode: true,
+            absoluteItems: []
+        };
+
+        if (docData.body && docData.body.content) {
+            docData.body.content.forEach(element => {
+                const parsed = this.parseElement(element);
+                if (parsed) {
+                    // Extract absolute value marked content
+                    const absoluteContent = this.absoluteParser.extractAbsoluteContent(parsed.text);
+                    
+                    if (absoluteContent.length > 0) {
+                        // Validate absolute items
+                        const validItems = absoluteContent.filter(item => {
+                            const validation = this.absoluteParser.validateAbsoluteContent(item);
+                            return validation.valid;
+                        });
+
+                        if (validItems.length > 0) {
+                            parsed.absoluteItems = validItems;
+                            content.absoluteItems.push(...validItems);
+                            content.body.push(parsed);
+                        }
+                    }
+                }
+            });
+        }
+
+        console.log(`📌 Analysis complete: Found ${content.absoluteItems.length} absolute value items`);
+        return content;
+    }
+
+    /**
+     * Parse individual document elements
+     */
+    parseElement(element) {
+        if (element.paragraph) {
+            return {
+                type: 'paragraph',
+                text: this.extractTextFromParagraph(element.paragraph),
+                style: element.paragraph.paragraphStyle
+            };
+        } else if (element.table) {
+            return {
+                type: 'table',
+                data: element.table
+            };
+        } else if (element.heading1) {
+            return {
+                type: 'heading1',
+                text: this.extractTextFromParagraph(element.heading1)
+            };
+        } else if (element.heading2) {
+            return {
+                type: 'heading2',
+                text: this.extractTextFromParagraph(element.heading2)
+            };
+        } else if (element.heading3) {
+            return {
+                type: 'heading3',
+                text: this.extractTextFromParagraph(element.heading3)
+            };
+        }
+        return null;
+    }
+
+    /**
+     * Extract text from paragraph element
+     */
+    extractTextFromParagraph(paragraph) {
+        if (!paragraph.elements) return '';
+        
+        return paragraph.elements
+            .map(el => el.textRun?.content || '')
+            .join('')
+            .trim();
+    }
+
+    /**
+     * Display parsed content in the UI
+     * Only shows ||marked|| absolute value content
+     */
+    displayContent(content) {
+        const contentArea = document.getElementById('document-content');
+        contentArea.innerHTML = '';
+
+        // Document source indicator
+        const sourceDiv = document.createElement('div');
+        sourceDiv.className = 'document-source';
+        sourceDiv.innerHTML = `
+            <small>
+                <span class="source-icon">📄</span>
+                Source: ${content.account} | ABSOLUTE MODE ON
+            </small>
+        `;
+        contentArea.appendChild(sourceDiv);
+
+        // Display mode info
+        const modeInfo = document.createElement('div');
+        modeInfo.className = 'mode-info';
+        modeInfo.innerHTML = `
+            <p>
+                <strong>📌 Absolute Mode Active:</strong> 
+                Displaying <strong>${content.absoluteItems.length}</strong> marked items
+            </p>
+            <p style="font-size: 0.9em; color: #666;">
+                Only content enclosed with <code>||</code> delimiters is shown
+            </p>
+        `;
+        contentArea.appendChild(modeInfo);
+
+        // Add title
+        const titleEl = document.createElement('h2');
+        titleEl.className = 'doc-title';
+        titleEl.textContent = content.title;
+        contentArea.appendChild(titleEl);
+
+        // Display body with absolute filtering
+        content.body.forEach(item => {
+            const container = document.createElement('div');
+            container.className = 'paragraph-container';
+
+            // Create heading/paragraph
+            const el = this.createElementFromParsed(item);
+            if (el) {
+                container.appendChild(el);
+            }
+
+            // Add absolute items from this paragraph
+            if (item.absoluteItems && item.absoluteItems.length > 0) {
+                const absoluteDiv = document.createElement('div');
+                absoluteDiv.className = 'absolute-items';
+
+                item.absoluteItems.forEach(absItem => {
+                    const absEl = this.createAbsoluteElement(absItem);
+                    if (absEl) {
+                        absoluteDiv.appendChild(absEl);
+                    }
+                });
+
+                container.appendChild(absoluteDiv);
+            }
+
+            contentArea.appendChild(container);
+        });
+
+        // Summary
+        const summary = document.createElement('div');
+        summary.className = 'absolute-summary';
+        const wordCount = content.absoluteItems.filter(i => i.type === 'word').length;
+        const sentenceCount = content.absoluteItems.filter(i => i.type === 'sentence').length;
+        const paragraphCount = content.absoluteItems.filter(i => i.type === 'paragraph').length;
+        
+        summary.innerHTML = `
+            <p>
+                <strong>✓ Analysis Complete:</strong><br>
+                • Words: ${wordCount}<br>
+                • Sentences: ${sentenceCount}<br>
+                • Paragraphs: ${paragraphCount}<br>
+                • Total Items: ${content.absoluteItems.length}
+            </p>
+        `;
+        contentArea.appendChild(summary);
+
+        // Update timestamp
+        document.getElementById('last-updated').textContent = 
+            `${content.lastUpdated.toLocaleString()} (${content.account}) - ABSOLUTE MODE`;
+    }
+
+    /**
+     * Create element for absolute value item
+     */
+    createAbsoluteElement(absItem) {
+        const el = document.createElement('div');
+        el.className = `absolute-item absolute-${absItem.type}`;
+
+        const badge = document.createElement('span');
+        badge.className = 'type-badge';
+        badge.textContent = absItem.type.toUpperCase();
+
+        const content = document.createElement('span');
+        content.className = 'absolute-content';
+        content.textContent = absItem.content;
+
+        const confidence = document.createElement('span');
+        confidence.className = 'confidence';
+        confidence.textContent = `${Math.round(absItem.confidence * 100)}%`;
+
+        el.appendChild(badge);
+        el.appendChild(content);
+        el.appendChild(confidence);
+
+        return el;
+    }
+
+    /**
+     * Create HTML element from parsed content
+     */
+    createElementFromParsed(parsedItem) {
+        let el = null;
+
+        switch (parsedItem.type) {
+            case 'heading1':
+                el = document.createElement('h1');
+                el.textContent = parsedItem.text;
+                break;
+            case 'heading2':
+                el = document.createElement('h2');
+                el.textContent = parsedItem.text;
+                break;
+            case 'heading3':
+                el = document.createElement('h3');
+                el.textContent = parsedItem.text;
+                break;
+            case 'paragraph':
+                el = document.createElement('p');
+                el.className = 'original-paragraph';
+                el.textContent = parsedItem.text;
+                break;
+            case 'table':
+                el = this.createTableElement(parsedItem.data);
+                break;
+        }
+
+        return el;
+    }
+
+    /**
+     * Create table element
+     */
+    createTableElement(tableData) {
+        const table = document.createElement('table');
+        table.className = 'content-table';
+        return table;
+    }
+
+    /**
+     * Cache management - get
+     */
+    getFromCache(docId) {
+        const cached = this.cache.get(docId);
+        if (!cached) return null;
+
+        const age = Date.now() - cached.timestamp;
+        const maxAge = CONFIG.CACHE_DURATION_MINUTES * 60 * 1000;
+
+        if (age > maxAge) {
+            this.cache.delete(docId);
+            return null;
+        }
+
+        return cached.content;
+    }
+
+    /**
+     * Cache management - set
+     */
+    setInCache(docId, content) {
+        this.cache.set(docId, {
+            content: content,
+            timestamp: Date.now()
+        });
+    }
+
+    /**
+     * Clear cache
+     */
+    clearCache() {
+        this.cache.clear();
+        console.log('Cache cleared for ' + CONFIG.ACCOUNT_EMAIL);
+    }
+
+    /**
+     * Get account information
+     */
+    getAccountInfo() {
+        return {
+            email: CONFIG.ACCOUNT_EMAIL,
+            verified: this.accountVerified,
+            cachedDocuments: this.cache.size,
+            absoluteModeEnabled: CONFIG.ABSOLUTE_MODE.ENABLED
+        };
+    }
+
+    /**
+     * Display error message
+     */
+    showError(message) {
+        const contentArea = document.getElementById('document-content');
+        contentArea.innerHTML = `
+            <div class="error-message">
+                <p>${message}</p>
+            </div>
+        `;
+        this.showAnalyzingLoader(false);
+    }
+}
+
+// Initialize application when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    displayAccountStatus();
+    window.contentHub = new GoogleDocsContentHub();
+    
+    const firstDocLink = document.querySelector('.doc-link');
+    if (firstDocLink) {
+        firstDocLink.click();
+    }
+});
+
+
+
+
 
 
