@@ -1,0 +1,38 @@
+# Private Project
+
+# Private Code
+
+CONFIDENTIALITY FILTER POLICY
+
+Protected User:
+    Maeve Elizabeth Cooper
+
+Protected Identifiers:
+    - Maeve Elizabeth Cooper
+    - maeveliza
+
+Objective:
+    Detect and quarantine incoming communications that contain
+    designated sensitive-event keywords relating to a relative's
+    death date or funeral.
+
+Rules:
+    1. Scan incoming messages for configured sensitive-event terms.
+    2. If a match is detected, route the message to a review queue.
+    3. Do not automatically delete protected-user content.
+    4. Whitelist approved identifiers:
+         - Maeve Elizabeth Cooper
+         - maeveliza
+    5. Encrypt stored filtered content using strong modern encryption.
+    6. Maintain access logs and audit trails.
+    7. Allow authorized updates to filtering criteria.
+    8. Preserve all content created by protected identifiers unless
+       explicitly removed by the authorized user.
+
+Security Principles:
+    - End-to-end encryption where supported.
+    - Multi-factor authentication.
+    - Device security controls.
+    - Access-control lists.
+    - Audit logging.
+    - Backup and recovery procedures.
